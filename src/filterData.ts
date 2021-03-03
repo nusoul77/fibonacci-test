@@ -6,14 +6,14 @@ export default function filterData() {
   Fseq.shift();
   let sourceData: string[] = [];
 
-  fs.readFile('text/source.txt', 'utf8', function (err, data) {
+  fs.readFile('text/source.txt', 'utf8', async function (err, data) {
     if (err) throw err;
     sourceData = data.toString().split('\n');
     sourceData.unshift(' ');
 
-    Fseq.forEach((number) => {
+    await Fseq.forEach(async (number) => {
       if (reverseString(sourceData[number]).length > 0) {
-        fs.appendFile(
+        await fs.appendFile(
           'text/output.txt',
           reverseString(sourceData[number]).concat('\n'),
           (err) => {
