@@ -1,9 +1,6 @@
 import fs from 'fs';
-import path from 'path';
 
-path.join(__dirname + '');
-
-let array: string[] = [' '];
+let array: any[] = [];
 
 //reverse string
 function reverseString(str: string) {
@@ -19,32 +16,49 @@ let FS: any[] = [];
 const fibonacci = (N: number) => {
   let F0: number = 0;
   let F1: number = 1;
-  let Fcurent: number = 0;
+  let Fcurent: number = F1;
   let i: number = 0;
 
-  while ((i = N)) {
-    Fcurent = F0 + F1;
-    FS.push(Fcurent);
-    F0 = F1;
-    F1 = Fcurent;
+  if (N >= 0 && N <= 1) {
+    Fcurent = N;
+    return Fcurent;
+  } else if (N > 0 && N < Infinity) {
+    while ((i = N)) {
+      FS.push(Fcurent);
+      Fcurent = F0 + F1;
+      F0 = F1;
+      F1 = Fcurent;
 
-    N--;
-    console.log('Fc = ', FS, 'iterations left:', N);
+      N--;
+      console.log('Fc = ', FS, 'iterations left:', N);
+    }
+  } else {
+    console.log('N must be >= 0 &&  N < Infinity');
   }
 };
+fibonacci(6);
 
-//read file
-fs.readFile('in-file.txt', 'utf8', function (err, data) {
+// read file
+FS.shift();
+fs.readFile('source.txt', 'utf8', function (err, data) {
   if (err) throw err;
   array = data.toString().split('\n');
-  for (let i in array) {
-    console.log(array[i]);
-    ////////// непрвильный цикл подумай как его сделать
-    if (array.indexOf(array[i]) == FS[i]) {
-      console.log(FS[i]);
-      console.log(reverseString(array[i]));
+  array.unshift(' ');
+
+  try {
+    for (let i in array) {
+      let data = reverseString(array[FS[i]]);
+      // console.log(data);
+
+      fs.appendFile('output.txt', data, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`data was writen to file`);
+        }
+      });
     }
+  } catch (e) {
+    console.log(e);
   }
 });
-
-fibonacci(6);
