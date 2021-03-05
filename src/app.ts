@@ -1,5 +1,5 @@
 import { fibonacci } from './fibSequance';
 import filterData from './filterData';
 
-fibonacci(25);
+fibonacci(6);
 filterData();
